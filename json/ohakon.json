@@ -1,0 +1,25 @@
+{
+  "date": {
+    "day": "19",
+    "month": "2",
+    "year": "2022"
+  },
+  "location": {
+    "coordinate": {
+      "lat": "35.8554",
+      "lng": "139.6512"
+    }
+  },
+  "moon_age": 17.87,
+  "rise_and_set": {
+    "moonrise": 20.01,
+    "moonrise_hm": "20:01",
+    "moonset": 7.925,
+    "moonset_hm": "7:55",
+    "sunrise": 6.407,
+    "sunrise_hm": "6:24",
+    "sunset": 17.441,
+    "sunset_hm": "17:26"
+  },
+  "version": "2.2"
+}
