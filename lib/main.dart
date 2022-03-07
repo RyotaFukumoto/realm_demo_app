@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:realm/realm.dart';
+import 'package:realm_demo_app/Models/ohakon_dao.dart';
 import 'package:realm_demo_app/ohakon.dart';
 
 void main() {
@@ -32,24 +33,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
   Future<void> _incrementCounter() async {
-      var config = Configuration([OhakonJson.schema]);
-      var realm = Realm(config);
-      await rootBundle.loadString('json/ohakon.json').then((jsonStr){
-        var ohakonW = OhakonJson(jsonStr);
+    String json =  await rootBundle.loadString('json/ohakon.json');
+    var ohakonW = OhakonJson(1,json);
+    OhakonDao.addOhakonJson(ohakonW);
 
-        realm.write(() {
-          realm.add(ohakonW);
-        });
-      });
-
-
-      var ohakonR = realm.all<OhakonJson>();
-      OhakonJson ohakonJ = ohakonR[0];
-      print("Ohakon Json ${ohakonJ.ohakon}");
-
+    OhakonJson ohakonJ = OhakonDao.findAll();
+    print('Ohakon FFFJson ${ohakonJ.ohakon}');
+    var ohakon = OhakonJson(1, 'aaaaa');
+    OhakonDao.updateOhakonJson(ohakon);
+    OhakonJson ohakonJJ = OhakonDao.findAll();
+    print('Ohakon FFFJson ${ohakonJJ.ohakon}');
   }
 
   @override
@@ -61,13 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
+          children: const <Widget>[
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              'You have pushed the button this many times:',
             ),
           ],
         ),

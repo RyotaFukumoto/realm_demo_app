@@ -8,12 +8,19 @@ part of 'ohakon.dart';
 
 class OhakonJson extends _OhakonJson with RealmObject {
   OhakonJson(
+    int id,
     String ohakon,
   ) {
+    RealmObject.set(this, 'id', id);
     this.ohakon = ohakon;
   }
 
   OhakonJson._();
+
+  @override
+  int get id => RealmObject.get<int>(this, 'id') as int;
+  @override
+  set id(int value) => throw RealmUnsupportedSetError();
 
   @override
   String get ohakon => RealmObject.get<String>(this, 'ohakon') as String;
@@ -25,6 +32,7 @@ class OhakonJson extends _OhakonJson with RealmObject {
   static SchemaObject _initSchema() {
     RealmObject.registerFactory(OhakonJson._);
     return const SchemaObject(OhakonJson, [
+      SchemaProperty('id', RealmPropertyType.int, primaryKey: true),
       SchemaProperty('ohakon', RealmPropertyType.string),
     ]);
   }
